@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="aktualna_pogoda">Forecast Weather</string>
+    <string name="poka">Show</string>
+    <string name="prognozaa">Forecast</string>
+    <string name="miasto">City</string>
+    <string name="teperatura">Teperature</string>
+    <string name="dodaj_do_ulubionych"> add to Favorites</string>
+
+
+</resources>
