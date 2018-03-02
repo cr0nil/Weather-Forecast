@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.karol.weatherforecast.api.ApiClient;
 import com.example.karol.weatherforecast.api.ApiService;
@@ -44,10 +45,11 @@ public class Tab1 extends Fragment {
         final TextView cityView = (TextView) view.findViewById(R.id.cityTxtView);
         final TextView tempView = (TextView) view.findViewById(R.id.tempTxtView);
         ApiService service = ApiClient.getClient().create(ApiService.class);
-
+        String strtext = getArguments().getString("edttext");
+        Toast.makeText(getContext(),strtext,Toast.LENGTH_SHORT).show();
 //        String unit = intent.getStringExtra("1");
         String qqCity = "rzeszów";
-        Call<WeatherService> call = service.getTrends(qqCity, MODE, UNITS, CNT, API_KEY);
+        Call<WeatherService> call = service.getTrends(strtext, MODE, UNITS, CNT, API_KEY);
         call.enqueue(new Callback<WeatherService>() {
             @Override
             public void onResponse(Call<WeatherService> call, Response<WeatherService> response) {

@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.karol.weatherforecast.adapter.ExpandableAdapter;
 import com.example.karol.weatherforecast.api.ApiClient;
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference();
         TextView timeV = (TextView) findViewById(R.id.timeView);
         String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+
         timeV.setText(currentDateTimeString);
         final EditText editText = (EditText) findViewById(R.id.editText);
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1 = new Intent(MainActivity.this, Main2Activity.class);
                 final String qqCity = editText.getText().toString();
-                intent.putExtra("1", qqCity);
+                intent1.putExtra("2", qqCity);
                 startActivity(intent1);
             }
         });
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     // wstawianie do expandableList
     private void intiData() {
         listDat = new ArrayList<>();
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //showData(dataSnapshot);
+                cityList.clear();
                 int i = 0;
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     // CityModel cityModel = new CityModel();

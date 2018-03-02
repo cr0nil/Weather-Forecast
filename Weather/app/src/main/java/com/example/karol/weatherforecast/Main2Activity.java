@@ -1,5 +1,6 @@
 package com.example.karol.weatherforecast;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -122,15 +123,29 @@ public class Main2Activity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            final Intent intent = getIntent();
+            final String cityNameSend = intent.getStringExtra("2");
             switch (position) {
                 case 0:
                     Tab1 tab1 = new Tab1();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("edttext", cityNameSend);
+                    tab1.setArguments(bundle);
                     return tab1;
                 case 1:
                     Tab2 tab2 = new Tab2();
+
+                    Bundle bundle2 = new Bundle();
+                    bundle2.putString("edttext", cityNameSend);
+                    tab2.setArguments(bundle2);
                     return tab2;
                 case 2:
                     Tab3 tab3 = new Tab3();
+
+                    Bundle bundle3 = new Bundle();
+                    bundle3.putString("edttext", cityNameSend);
+                    tab3.setArguments(bundle3);
                     return tab3;
                 default:
                     return null;
