@@ -1,6 +1,7 @@
 package com.example.karol.weatherforecast;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.DateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         expandableAdapter = new ExpandableAdapter(listDat, this, listHashMap);
         expandableListView.setAdapter(expandableAdapter);
         final Intent intent = getIntent();
-//        String unit = intent.getStringExtra("1");
-//        Toast.makeText(this, unit, Toast.LENGTH_LONG).show();
+
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 final String selected = (String) expandableAdapter.getChild(
                         groupPosition, childPosition);
                 fav.add(selected);
-                final String qUnits = intent.getStringExtra("1");
-                weatherInfo(selected, qUnits);
-                // Toast.makeText(MainActivity.this, selected, Toast.LENGTH_LONG).show();
+
+                weatherInfo(selected, setUnits());
+                Toast.makeText(MainActivity.this, selected, Toast.LENGTH_LONG).show();
                 return true;
             }
         });
@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //forecastInfo();
                 final String qqCity = editText.getText().toString();
-                final String qUnits = intent.getStringExtra("1");
+
 //
-                weatherInfo(qqCity, qUnits);
+                weatherInfo(qqCity, setUnits());
 
             }
 
@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
         getGPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String qUnits = intent.getStringExtra("1");
-                coordInfo(qUnits);
+                coordInfo(setUnits());
             }
         });
 
@@ -113,13 +112,33 @@ public class MainActivity extends AppCompatActivity {
         forecas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent1 = new Intent(MainActivity.this, Main2Activity.class);
                 final String qqCity = editText.getText().toString();
+
                 intent1.putExtra("2", qqCity);
                 startActivity(intent1);
             }
         });
+        Toast.makeText(MainActivity.this, setUnits(), Toast.LENGTH_LONG).show();
+    }
 
+    public String setUnits() {
+        String globalUnits;
+        SharedPreferences settings = getSharedPreferences("Answers", 0);
+        boolean answerA = settings.getBoolean("questionA", false);
+        boolean answerB = settings.getBoolean("questionB", false);
+        boolean answerC = settings.getBoolean("questionC", false);
+
+        if (answerA == true) {
+            globalUnits = "Metric";
+        } else if (answerB == true) {
+            globalUnits = "Imperial";
+        } else {
+            globalUnits = "Default";
+        }
+        //Toast.makeText(MainActivity.this, answerA + " " + answerB + " " + answerC+" ---" +globalUnits, Toast.LENGTH_LONG).show();
+        return globalUnits;
     }
 
     @Override
@@ -181,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         ApiService service = ApiClient.getClient().create(ApiService.class);
 
 
-        Toast.makeText(MainActivity.this, units, Toast.LENGTH_LONG).show();
+        //  Toast.makeText(MainActivity.this, units, Toast.LENGTH_LONG).show();
         Call<Forecast> call = service.getWeather(favCity, MODE, units, API_KEY);
         call.enqueue(new Callback<Forecast>() {
             @Override

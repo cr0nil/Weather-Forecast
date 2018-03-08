@@ -46,10 +46,11 @@ public class Tab1 extends Fragment {
         final TextView tempView = (TextView) view.findViewById(R.id.tempTxtView);
         ApiService service = ApiClient.getClient().create(ApiService.class);
         String strtext = getArguments().getString("edttext");
-        Toast.makeText(getContext(),strtext,Toast.LENGTH_SHORT).show();
-//        String unit = intent.getStringExtra("1");
+        String strtext1 = getArguments().getString("edttext2");
+
+        Toast.makeText(getContext(), strtext1, Toast.LENGTH_SHORT).show();
         String qqCity = "rzeszów";
-        Call<WeatherService> call = service.getTrends(strtext, MODE, UNITS, CNT, API_KEY);
+        Call<WeatherService> call = service.getTrends(strtext, MODE, strtext1, CNT, API_KEY);
         call.enqueue(new Callback<WeatherService>() {
             @Override
             public void onResponse(Call<WeatherService> call, Response<WeatherService> response) {
@@ -97,12 +98,12 @@ public class Tab1 extends Fragment {
         c.setTime(currentDate);
 
         // manipulate date
-       //DateFormat curr =  DateFormat.getTimeInstance();
+        //DateFormat curr =  DateFormat.getTimeInstance();
 
         //c.add(Calendar.MONTH, 1);
         //c.add(Calendar.DATE, 1); //same with c.add(Calendar.DAY_OF_MONTH, 1);
         c.add(Calendar.HOUR, 24);
-       // c.add(Calendar.MINUTE, 1);
+        // c.add(Calendar.MINUTE, 1);
         //c.add(Calendar.SECOND, 1);
 
         // convert calendar to date

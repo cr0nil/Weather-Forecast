@@ -23,7 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
-e * Created by Karol on 28.02.2018.
+ * e * Created by Karol on 28.02.2018.
  */
 
 public class Tab3 extends Fragment {
@@ -31,6 +31,7 @@ public class Tab3 extends Fragment {
     private final static String MODE = "json";
     private final static String UNITS = "metric";
     private final static String CNT = "24";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -41,10 +42,10 @@ public class Tab3 extends Fragment {
         TextView timeV = (TextView) view.findViewById(R.id.day1View);
         timeV.setText("za 3 dni");
         String strtext = getArguments().getString("edttext");
-        Toast.makeText(getContext(),strtext,Toast.LENGTH_SHORT).show();
-//        String unit = intent.getStringExtra("1");
-       // String qqCity = "rzeszów";
-        Call<WeatherService> call = service.getTrends(strtext, MODE, UNITS, CNT, API_KEY);
+        String strtext1 = getArguments().getString("edttext2");
+        Toast.makeText(getContext(), strtext, Toast.LENGTH_SHORT).show();
+        // String qqCity = "rzeszów";
+        Call<WeatherService> call = service.getTrends(strtext, MODE, strtext1, CNT, API_KEY);
         call.enqueue(new Callback<WeatherService>() {
             @Override
             public void onResponse(Call<WeatherService> call, Response<WeatherService> response) {

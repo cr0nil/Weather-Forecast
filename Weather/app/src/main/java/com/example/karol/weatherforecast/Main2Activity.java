@@ -1,6 +1,7 @@
 package com.example.karol.weatherforecast;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -131,6 +132,7 @@ public class Main2Activity extends AppCompatActivity {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("edttext", cityNameSend);
+                    bundle.putString("edttext2", setUnits());
                     tab1.setArguments(bundle);
                     return tab1;
                 case 1:
@@ -138,6 +140,7 @@ public class Main2Activity extends AppCompatActivity {
 
                     Bundle bundle2 = new Bundle();
                     bundle2.putString("edttext", cityNameSend);
+                    bundle2.putString("edttext2", setUnits());
                     tab2.setArguments(bundle2);
                     return tab2;
                 case 2:
@@ -145,12 +148,32 @@ public class Main2Activity extends AppCompatActivity {
 
                     Bundle bundle3 = new Bundle();
                     bundle3.putString("edttext", cityNameSend);
+                    bundle3.putString("edttext2", setUnits());
                     tab3.setArguments(bundle3);
                     return tab3;
                 default:
                     return null;
             }
 
+        }
+        public String setUnits(){
+            String globalUnits;
+            SharedPreferences settings = getSharedPreferences("Answers", 0);
+            boolean answerA = settings.getBoolean("questionA", false);
+            boolean answerB = settings.getBoolean("questionB", false);
+            boolean answerC = settings.getBoolean("questionC", false);
+
+            if(answerA==true){
+                globalUnits="Metric";
+            }
+            else if(answerB==true){
+                globalUnits="Imperial";
+            }
+            else{
+                globalUnits="Default";
+            }
+            //Toast.makeText(MainActivity.this, answerA + " " + answerB + " " + answerC+" ---" +globalUnits, Toast.LENGTH_LONG).show();
+            return globalUnits;
         }
 
         @Override
