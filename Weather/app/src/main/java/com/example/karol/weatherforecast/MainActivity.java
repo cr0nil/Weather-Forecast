@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String API_KEY = "6c1b1944e53ff6202e68e84bd70c6910";
     private final static String MODE = "json";
     private final static String UNITS = "metric";
-    private final static String CNT = "1"; // liczba miast w okręgu  których mają byc pobrane dane default=10 max =50
+    private final static String CNT = "1"; //default=10 max =50
     private DatabaseReference reference;
     private ExpandableListView expandableListView;
     private ExpandableAdapter expandableAdapter;
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 fav.add(selected);
 
                 weatherInfo(selected, setUnits());
+                
                 Toast.makeText(MainActivity.this, selected, Toast.LENGTH_LONG).show();
                 return true;
             }
@@ -92,21 +93,16 @@ public class MainActivity extends AppCompatActivity {
                 //forecastInfo();
                 final String qqCity = editText.getText().toString();
 
-//
-                weatherInfo(qqCity, setUnits());
+                if (qqCity.equals("")) {
+                    coordInfo(setUnits());
+                } else
+                    weatherInfo(qqCity, setUnits());
 
             }
 
 
         });
 
-        Button getGPS = (Button) findViewById(R.id.gpsBtn);
-        getGPS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                coordInfo(setUnits());
-            }
-        });
 
         Button forecas = (Button) findViewById(R.id.forecastBtn);
         forecas.setOnClickListener(new View.OnClickListener() {
